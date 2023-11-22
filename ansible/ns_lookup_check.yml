@@ -1,0 +1,18 @@
+---
+- hosts: azlsapa6gdb01
+  tasks:
+    - name: Print scriptdir
+      command: echo "{{ playbook_dir }}"
+      register: scriptdir_result
+
+    - name: Pause for 10 seconds
+      pause:
+        seconds: 10
+
+    - name: Run nslookup on azlsapa6gdb01
+      command: nslookup "{{ azlsapa6gdb01 }}"
+      register: nslookup_result
+
+    - name: Display nslookup result
+      debug:
+        var: nslookup_result.stdout_lines
