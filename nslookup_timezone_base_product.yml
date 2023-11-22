@@ -1,0 +1,49 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Nslookup Check
+      command: "timeout 10 nslookup '10.1.0.23'"
+      register: nslookup_result
+      ignore_errors: true
+
+    - name: Set Timezone
+      command: "timedatectl set-timezone 'Asia/Manila'"
+      register: timezone_result
+
+    - name: Grep CPE_NAME
+      shell: "grep CPE_NAME /etc/os-release | cut -d= -f2 | tr -d '\"' | cut -d: -f3-6"
+      register: cpe_name_result
+
+    - name: Display Results
+      debug:
+        var: item.stdout_lines
+      with_items:
+        - "{{ nslookup_result }}"
+        - "{{ timezone_result }}"
+        - "{{ cpe_name_result }}"
+
+    - name: Overall Status
+      set_fact:
+        overall_status: |
+          {% if nslookup_result.rc == 0 %}
+            Nslookup Check: Success
+          {% else %}
+            Nslookup Check: Failed
+          {% endif %}
+
+          {% if timezone_result.rc == 0 %}
+            Set Timezone: Success
+          {% else %}
+            Set Timezone: Failed
+          {% endif %}
+
+          {% if cpe_name_result.rc == 0 %}
+            CPE_NAME Check: Success
+          {% else %}
+            CPE_NAME Check: Failed
+          {% endif %}
+
+    - name: Display Overall Status
+      debug:
+        var: overall_status
