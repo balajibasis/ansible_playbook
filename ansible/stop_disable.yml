@@ -2,11 +2,9 @@
 - name: Manage firewalld service
   hosts: localhost
   become: true  # Run tasks with elevated privileges (sudo)
-
-- include_vars:
-          file: variable.yml
-
   tasks:
+    - include_vars:
+          file: variable.yml
     - name: Stop firewalld service
       systemd:
         name: "{{ service_name }}"
