@@ -1,0 +1,27 @@
+---
+- name: Perform nslookup
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    oracledb1_ip: "{{ oracledb1_ip_param | default('10.2.0.37') }}"
+
+  tasks:
+    - name: Execute nslookup command
+      command: "timeout 10 nslookup {{ oracledb1_ip }}"
+      register: nslookup_output
+      ignore_errors: yes  # Ignore errors if nslookup fails
+
+    - name: Display nslookup output
+      debug:
+        var: nslookup_output.stdout_lines
+      when: nslookup_output is defined and nslookup_output.rc == 0
+
+    - name: Display nslookup failure message
+      debug:
+        msg: "nslookup failed for {{ oracledb1_ip }}"
+      when: nslookup_output is defined and nslookup_output.rc != 0
+
+    - name: Set nslookup success or failure fact
+      set_fact:
+        nslookup_successful: "{{ nslookup_output.rc == 0 | default(false) }}"
