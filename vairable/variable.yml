@@ -1,4 +1,4 @@
 private_ip: "$private_ip"
 timezone: "$timezone"
-stop_service: "$stop_service"
-disable_service: "$disable_service"
+service_name: "$service_name"
+
