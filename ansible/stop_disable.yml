@@ -3,8 +3,8 @@
   hosts: localhost
   become: true  # Run tasks with elevated privileges (sudo)
 
-  vars:
-    service_name: "{{ $service_name }}"
+- include_vars:
+          file: variable.yml
 
   tasks:
     - name: Stop firewalld service
