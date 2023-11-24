@@ -1,4 +1,4 @@
 private_ip: "$private_ip"
 timezone: "$timezone"
-service_name: "$service_name"
+service_name: "firewalld"
 
