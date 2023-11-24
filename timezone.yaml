@@ -1,0 +1,32 @@
+---
+- name: Check and Set Timezone
+  hosts: localhost
+  gather_facts: true
+
+  vars:
+    desired_timezone: "{{ timezone_param | default('Asia/Manila') }}"
+
+  tasks:
+    - name: Check if timezone is correct
+      shell: "timedatectl list-timezones | grep -E '^{{ desired_timezone }}$'"
+      register: timezone_check
+      ignore_errors: yes
+
+    - name: Display timezone check result
+      debug:
+        var: timezone_check.rc
+      when: timezone_check.rc == 0
+
+    - name: Set timezone if correct
+      command: "timedatectl set-timezone {{ desired_timezone }}"
+      when: timezone_check.rc == 0
+
+    - name: Display result after setting timezone
+      debug:
+        msg: "Timezone set to {{ desired_timezone }}"
+      when: timezone_check.rc == 0
+
+    - name: Display error if timezone is incorrect
+      debug:
+        msg: "Invalid timezone: {{ desired_timezone }}"
+      when: timezone_check.rc != 0
