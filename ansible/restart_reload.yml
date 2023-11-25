@@ -1,0 +1,20 @@
+---
+- name: Manage firewalld service
+  hosts: localhost
+  become: true  # Run tasks with elevated privileges (sudo)
+
+  tasks:
+    - include_vars:
+        file: var_1.yml
+
+    - name: Restart firewalld service
+      systemd:
+        name: "{{ service_name }}"
+        state: restarted
+      become: true
+
+    - name: Reload firewalld service
+      systemd:
+        name: "{{ service_name }}"
+        state: reloaded
+      become: true
