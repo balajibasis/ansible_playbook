@@ -16,16 +16,7 @@
       debug:
         var: timezone_check.rc
       when: timezone_check.rc == 0
-
-    - name: Set timezone if correct
-      command: "timedatectl set-timezone {{ desired_timezone }}"
-      when: timezone_check.rc == 0
-
-    - name: Display result after setting timezone
-      debug:
-        msg: "Timezone set to {{ desired_timezone }}"
-      when: timezone_check.rc == 0
-
+      
     - name: Display error if timezone is incorrect
       debug:
         msg: "Invalid timezone: {{ desired_timezone }}"
