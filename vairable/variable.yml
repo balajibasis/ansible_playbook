@@ -1,4 +1,4 @@
-private_ip: "$private_ip"
-timezone: "$timezone"
+private_ip: "10.2.0.37"
+timezone: "Asia/Manila"
 stop_disable: "firewalld"
 restart_reload: "NetworkManager"
