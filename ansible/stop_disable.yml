@@ -4,7 +4,7 @@
   become: true  # Run tasks with elevated privileges (sudo)
   tasks:
     - include_vars:
-          file: variable.yml
+          file: var_1.yml
     - name: Stop firewalld service
       systemd:
         name: "{{ service_name }}"
