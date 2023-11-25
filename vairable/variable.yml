@@ -1,4 +1,5 @@
 private_ip: "10.2.0.37"
 timezone: "Asia/Manila"
-stop_disable: "firewalld"
+stop_disable: "${var.firewalld}"
 restart_reload: "NetworkManager"
+subaccout: "${var.subaccount_admins}"
