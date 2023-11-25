@@ -4,7 +4,7 @@
   gather_facts: true
 
   vars:
-    desired_timezone: "{{ timezone_param | default('Asia/Manila') }}"
+    desired_timezone: "{{ timezone }}"
 
   tasks:
     - name: Check if timezone is correct
