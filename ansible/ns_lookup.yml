@@ -6,7 +6,7 @@
     - include_vars:
           file: variable.yml
     - name: Execute nslookup command
-      command: "timeout 10 nslookup {{ private_ip }}"
+      command: "timeout 10 nslookup "{{ private_ip }}""
       register: nslookup_output
       ignore_errors: yes  # Ignore errors if nslookup fails
 
@@ -17,7 +17,7 @@
 
     - name: Display nslookup failure message
       debug:
-        msg: "nslookup failed for {{ private_ip }}"
+        msg: "nslookup failed for "{{ private_ip }}""
       when: nslookup_output is defined and nslookup_output.rc != 0
 
     - name: Set nslookup success or failure fact
