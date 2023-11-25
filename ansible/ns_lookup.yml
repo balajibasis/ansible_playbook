@@ -4,11 +4,11 @@
   gather_facts: false
 
   vars:
-    oracledb1_ip: "{{ oracledb1_ip_param | default('10.2.0.37') }}"
+    oracledb1_ip: "{{ private_ip }}"
 
   tasks:
     - name: Execute nslookup command
-      command: "timeout 10 nslookup {{ oracledb1_ip }}"
+      command: "timeout 10 nslookup {{ private_ip }}"
       register: nslookup_output
       ignore_errors: yes  # Ignore errors if nslookup fails
 
@@ -19,9 +19,9 @@
 
     - name: Display nslookup failure message
       debug:
-        msg: "nslookup failed for {{ oracledb1_ip }}"
+        msg: "nslookup failed for {{ private_ip }}"
       when: nslookup_output is defined and nslookup_output.rc != 0
 
     - name: Set nslookup success or failure fact
       set_fact:
-        nslookup_successful: "{{ nslookup_output.rc == 0 | default(false) }}"
+        nslookup_successful: "{{ nslookup_output.rc == 0 }}"
