@@ -1,4 +1,4 @@
 private_ip: "$private_ip"
 timezone: "$timezone"
-service_name: "firewalld"
-
+stop_disable: "firewalld"
+restart_reload: "NetworkManager"
