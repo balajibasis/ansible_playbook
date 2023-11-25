@@ -3,12 +3,11 @@
   hosts: localhost
   gather_facts: true
 
-  vars:
-    desired_timezone: "{{ timezone }}"
-
   tasks:
+    - include_vars:
+          file: variable.yml
     - name: Check if timezone is correct
-      shell: "timedatectl list-timezones | grep -E '^{{ desired_timezone }}$'"
+      shell: "timedatectl list-timezones | grep -E '^{{ timezone }}$'"
       register: timezone_check
       ignore_errors: yes
 
@@ -19,5 +18,5 @@
       
     - name: Display error if timezone is incorrect
       debug:
-        msg: "Invalid timezone: {{ desired_timezone }}"
+        msg: "Invalid timezone: {{ timezone }}"
       when: timezone_check.rc != 0
