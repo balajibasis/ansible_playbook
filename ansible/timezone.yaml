@@ -5,7 +5,8 @@
 
   tasks:
     - include_vars:
-          file: variable.yml
+        file: variable.yml
+
     - name: Check if timezone is correct
       shell: "timedatectl list-timezones | grep -E '^{{ timezone }}$'"
       register: timezone_check
@@ -13,9 +14,9 @@
 
     - name: Display timezone check result
       debug:
-        var: timezone_check.rc
+        var: timezone_check.stdout_lines  # Display the output of the command
       when: timezone_check.rc == 0
-      
+
     - name: Display error if timezone is incorrect
       debug:
         msg: "Invalid timezone: {{ timezone }}"
