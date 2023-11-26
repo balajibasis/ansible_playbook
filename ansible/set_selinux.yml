@@ -1,0 +1,19 @@
+---
+- name: Set SELinux to permissive
+  hosts: localhost
+  become: true  # Run tasks with elevated privileges (sudo)
+
+  tasks:
+    - name: Set SELINUX to permissive in /etc/selinux/config
+      lineinfile:
+        path: /etc/selinux/config
+        regexp: '^SELINUX='
+        line: 'SELINUX=permissive'
+
+    - name: Display SELINUX status in /etc/selinux/config
+      command: "grep -i SELINUX /etc/selinux/config"
+      register: selinux_config_status
+      changed_when: false
+
+    - debug:
+        var: selinux_config_status.stdout_lines
