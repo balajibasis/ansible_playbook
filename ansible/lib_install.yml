@@ -1,6 +1,6 @@
 ---
 - name: Install required packages
-  hosts: your_target_host
+  hosts: localhost
   become: true  # Run tasks with elevated privileges (sudo)
 
   tasks:
