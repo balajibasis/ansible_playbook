@@ -1,0 +1,28 @@
+---
+- name: Set OS Kernel Parameters
+  hosts: set_os_kernel_parameter
+  become: true  # Run tasks with elevated privileges (sudo)
+
+  tasks:
+    - name: Set net.ipv4.tcp_syn_retries in sysctl config
+      lineinfile:
+        path: /etc/sysctl.d/97-oracle-database-sysctl.conf
+        line: 'net.ipv4.tcp_syn_retries = 8'
+
+    - name: Set net.ipv4.tcp_tw_reuse in sysctl config
+      lineinfile:
+        path: /etc/sysctl.d/97-oracle-database-sysctl.conf
+        line: 'net.ipv4.tcp_tw_reuse = 1'
+
+    - name: Set net.ipv4.tcp_timestamps in sysctl config
+      lineinfile:
+        path: /etc/sysctl.d/97-oracle-database-sysctl.conf
+        line: 'net.ipv4.tcp_timestamps = 1'
+
+    - name: Set vm.swappiness in sysctl config
+      lineinfile:
+        path: /etc/sysctl.d/97-oracle-database-sysctl.conf
+        line: 'vm.swappiness = 10'
+
+    - name: Apply sysctl changes
+      command: sysctl --system
