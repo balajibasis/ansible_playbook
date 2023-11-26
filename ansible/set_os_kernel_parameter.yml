@@ -1,6 +1,6 @@
 ---
 - name: Set OS Kernel Parameters
-  hosts: set_os_kernel_parameter
+  hosts: localhost
   become: true  # Run tasks with elevated privileges (sudo)
 
   tasks:
