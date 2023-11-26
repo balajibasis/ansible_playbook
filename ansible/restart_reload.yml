@@ -5,7 +5,7 @@
 
   tasks:
     - include_vars:
-        file: var_1.yml
+        file: variable.yml
 
     - name: Restart firewalld service
       systemd:
