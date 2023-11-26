@@ -1,6 +1,4 @@
-private_ip: ${var.private_ip}
-timezone: "${var.timezone}"
-stop_disable: "${var.stop_disable}"
-restart_reload: "${var.restart_reload}"
-service_name: "$service_name"
-
+private_ip: "10.2.0.37"
+timezone: "Asia/Manila"
+restart_reload: "NetworkManager"
+service_name: "firewalld"
