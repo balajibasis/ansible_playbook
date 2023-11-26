@@ -1,0 +1,32 @@
+---
+- name: Install required packages
+  hosts: your_target_host
+  become: true  # Run tasks with elevated privileges (sudo)
+
+  tasks:
+    - name: Install packages
+      dnf:
+        name:
+          - binutils
+          - gcc-c++
+          - compat-libstdc++-33
+          - elfutils-libelf
+          - elfutils-libelf-devel
+          - fontconfig-devel
+          - glibc
+          - glibc-devel
+          - ksh
+          - libaio
+          - libaio-devel
+          - libXrender
+          - libXrender-devel
+          - libX11
+          - libXau
+          - libXi
+          - libXtst
+          - libgcc
+          - librdmacm-devel
+          - libstdc++
+          - libstdc++-devel
+          - unixODBC
+        state: present
