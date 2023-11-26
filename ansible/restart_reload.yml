@@ -9,12 +9,12 @@
 
     - name: Restart firewalld service
       systemd:
-        name: "{{ service_name }}"
+        name: "{{ restart_reload }}"
         state: restarted
       become: true
 
     - name: Reload firewalld service
       systemd:
-        name: "{{ service_name }}"
+        name: "{{ restart_reload }}"
         state: reloaded
       become: true
