@@ -9,7 +9,6 @@
         name:
           - binutils
           - gcc-c++
-          - compat-libstdc++-33
           - elfutils-libelf
           - elfutils-libelf-devel
           - fontconfig-devel
