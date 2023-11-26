@@ -4,7 +4,7 @@
   become: true  # Run tasks with elevated privileges (sudo)
 
   tasks:
-    - name: Create sysctl.d directory if it doesn't exist
+    - name: Ensure sysctl.d directory exists
       file:
         path: /etc/sysctl.d
         state: directory
