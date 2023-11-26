@@ -4,6 +4,11 @@
   become: true  # Run tasks with elevated privileges (sudo)
 
   tasks:
+    - name: Create sysctl.d directory if it doesn't exist
+      file:
+        path: /etc/sysctl.d
+        state: directory
+
     - name: Set net.ipv4.tcp_syn_retries in sysctl config
       lineinfile:
         path: /etc/sysctl.d/97-oracle-database-sysctl.conf
