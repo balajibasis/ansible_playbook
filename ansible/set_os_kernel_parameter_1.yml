@@ -1,0 +1,22 @@
+---
+- name: Set OS Kernel Parameters
+  hosts: localhost
+  become: true  # Run tasks with elevated privileges (sudo)
+
+  tasks:
+    - name: Ensure sysctl.d directory exists
+      file:
+        path: /etc/sysctl.d
+        state: directory
+
+    - name: Set net.ipv4.tcp_syn_retries, net.ipv4.tcp_tw_reuse, net.ipv4.tcp_timestamps, and vm.swappiness in sysctl config
+      blockinfile:
+        path: /etc/sysctl.d/97-oracle-database-sysctl.conf
+        block: |
+          net.ipv4.tcp_syn_retries = 8
+          net.ipv4.tcp_tw_reuse = 1
+          net.ipv4.tcp_timestamps = 1
+          vm.swappiness = 10
+
+    - name: Apply sysctl changes
+      command: sysctl --system

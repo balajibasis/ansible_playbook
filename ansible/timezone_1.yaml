@@ -1,0 +1,23 @@
+---
+- name: Check and Set Timezone
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - include_vars:
+        file: variable_1.yml
+
+    - name: Check if timezone is correct
+      shell: "timedatectl list-timezones | grep -E '^{{ timezone }}$'"
+      register: timezone_check
+      ignore_errors: yes
+
+    - name: Display timezone check result
+      debug:
+        var: timezone_check.stdout_lines  # Display the output of the command
+      when: timezone_check.rc == 0
+
+    - name: Display error if timezone is incorrect
+      debug:
+        msg: "Invalid timezone: {{ timezone }}"
+      when: timezone_check.rc != 0

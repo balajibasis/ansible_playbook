@@ -1,0 +1,20 @@
+---
+- name: Disable NUMA balancing in /etc/default/grub
+  hosts: localhost
+  become: true  # Run tasks with elevated privileges (sudo)
+
+  tasks:
+    - name: Set numa_balancing=disable in /etc/default/grub
+      lineinfile:
+        path: /etc/default/grub
+        line: 'numa_balancing=disable'
+      notify:
+        - Update GRUB configuration
+
+    - name: Display the line in /etc/default/grub
+      command: "grep -i numa_balancing /etc/default/grub"
+      register: grep_result
+      changed_when: false
+
+    - debug:
+        var: grep_result.stdout_lines

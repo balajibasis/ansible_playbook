@@ -1,0 +1,13 @@
+---
+- name: Get Total Swap Space
+  hosts: localhost
+  become: true  # Run tasks with elevated privileges (sudo)
+
+  tasks:
+    - name: Get Total Swap Space
+      command: "free -g | grep Swap | awk '{print $2}'"
+      register: swap_space_result
+
+    - name: Display Total Swap Space
+      debug:
+        var: swap_space_result.stdout_lines[0]
