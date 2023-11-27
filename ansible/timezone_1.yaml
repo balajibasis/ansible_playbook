@@ -5,7 +5,7 @@
 
   tasks:
     - include_vars:
-        file: variable_1.yml
+        file: variable.yml
 
     - name: Check if timezone is correct
       shell: "timedatectl list-timezones | grep -E '^{{ timezone }}$'"
