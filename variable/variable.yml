@@ -1,0 +1,4 @@
+private_ip: "$var.private_ip"
+timezone: "$var.timezone"
+stop_disable: "$var.stop_disable"
+restart_reload: "$var.restart_reload"
