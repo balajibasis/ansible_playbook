@@ -7,12 +7,12 @@
           file: variable.yml
     - name: Stop firewalld service
       systemd:
-        name: "{{ service_name }}"
+        name: "{{ stop_disable }}"
         state: stopped
       become: true
 
     - name: Disable firewalld service
       systemd:
-        name: "{{ service_name }}"
+        name: "{{ stop_disable }}"
         enabled: no
       become: true
