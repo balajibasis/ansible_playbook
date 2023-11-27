@@ -4,7 +4,7 @@
   gather_facts: false
   tasks:
     - include_vars:
-          file: variable_1.yml
+          file: variable.yml
     - name: Execute nslookup command
       command: "timeout 10 nslookup {{private_ip}}"
       register: nslookup_output
