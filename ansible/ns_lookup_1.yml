@@ -1,0 +1,25 @@
+---
+- name: Perform nslookup
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - include_vars:
+          file: variable_1.yml
+    - name: Execute nslookup command
+      command: "timeout 10 nslookup {{private_ip}}"
+      register: nslookup_output
+      ignore_errors: yes  # Ignore errors if nslookup fails
+
+    - name: Display nslookup output
+      debug:
+        var: nslookup_output.stdout_lines
+      when: nslookup_output is defined and nslookup_output.rc == 0
+
+    - name: Display nslookup failure message
+      debug:
+        msg: "nslookup failed for {{private_ip}}"
+      when: nslookup_output is defined and nslookup_output.rc != 0
+
+    - name: Set nslookup success or failure fact
+      set_fact:
+        nslookup_successful: "{{ nslookup_output.rc == 0 }}"
