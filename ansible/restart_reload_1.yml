@@ -5,15 +5,15 @@
 
   tasks:
     - include_vars:
-        file: variable_1.yml
+        file: variable.yml
 
-    - name: Restart firewalld service
+    - name: Restart NetworkManager service
       systemd:
         name: "{{ restart_reload }}"
         state: restarted
       become: true
 
-    - name: Reload firewalld service
+    - name: Reload NetworkManager service
       systemd:
         name: "{{ restart_reload }}"
         state: reloaded
